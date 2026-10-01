@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Genetic variation in individuals: Year 11 revision tasks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F3F5F8; --surface:#FFFFFF; --ink:#16212B; --muted:#4B5D6B; --line:#CAD4DC; --soft:#E8EDF2;
+  --c1:#D2582B; --c2:#2B6CB0; --barink:#FFFFFF;
+  --good:#16794A; --bad:#B3261E; --focus:#2B6CB0;
+  --head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Atkinson Hyperlegible','Segoe UI',system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101820; --surface:#18262F; --ink:#E7EEF3; --muted:#9FB1BE; --line:#2C4150; --soft:#1F313B;
+    --c1:#F0845A; --c2:#74AAE8; --barink:#101820; --good:#58C98F; --bad:#FF8A80; --focus:#74AAE8;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101820; --surface:#18262F; --ink:#E7EEF3; --muted:#9FB1BE; --line:#2C4150; --soft:#1F313B;
+  --c1:#F0845A; --c2:#74AAE8; --barink:#101820; --good:#58C98F; --bad:#FF8A80; --focus:#74AAE8;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+.wrap{max-width:1000px;margin:0 auto;padding:20px 16px 64px}
+h1,h2,h3{font-family:var(--head);line-height:1.15;margin:0}
+h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.5rem;font-weight:800;margin-bottom:6px}
+h3{font-size:1.1rem;font-weight:600;margin:0 0 8px}
+p{margin:0 0 10px;max-width:72ch}
+.lede{color:var(--muted);margin-top:8px}
+header{padding:8px 0 18px}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;border-bottom:2px solid var(--line);margin-bottom:22px;-webkit-overflow-scrolling:touch}
+nav.tabs button{flex:0 0 auto;font:inherit;font-weight:700;background:transparent;color:var(--muted);border:2px solid transparent;border-radius:8px;padding:8px 14px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+nav.tabs button:hover{border-color:var(--line)}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.btn{background:var(--ink);color:var(--bg);border:0;border-radius:8px;padding:9px 16px;font-weight:700;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.muted{color:var(--muted)}
+select,input[type=text]{background:var(--bg);border:2px solid var(--line);border-radius:8px;padding:8px 10px}
+.fb{min-height:1.5em;font-weight:700;margin:8px 0}
+.fb.good{color:var(--good)} .fb.bad{color:var(--bad)}
+.prog{font-weight:700}
+.model{background:var(--soft);border-left:5px solid var(--c2);border-radius:6px;padding:10px 14px;margin-top:12px}
+.model p{margin-bottom:6px}
+details.q{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--surface)}
+details.q summary{cursor:pointer;padding:10px 14px;font-weight:700}
+details.q div{padding:0 14px 12px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-weight:700;margin:6px 0}
+.sw{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:6px;vertical-align:-2px}
+.sw.o{background:var(--c1)} .sw.b{background:var(--c2)}
+input[type=range]{width:100%;accent-color:var(--c2)}
+/* match */
+.sets{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.sets button,.qpick button,.seg button{border:2px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:700}
+.sets button[aria-pressed="true"],.qpick button[aria-pressed="true"],.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px}
+@media(max-width:640px){.mgrid{grid-template-columns:1fr}}
+.mgrid button{display:block;width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;margin-bottom:10px}
+.mgrid button.sel{border-color:var(--c2);background:color-mix(in srgb,var(--c2) 14%,var(--surface))}
+.mgrid button.done{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface));cursor:default}
+.mgrid .term{font-family:var(--head);font-weight:600}
+/* svg stages */
+.stage svg,.xo svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.cell{fill:color-mix(in srgb,var(--c2) 6%,var(--surface));stroke:var(--muted);stroke-width:2.5}
+.allele{font-family:var(--body);font-weight:700;font-size:12px;fill:var(--ink);text-anchor:middle}
+.slab{font-family:var(--body);font-size:12px;fill:var(--muted);text-anchor:middle}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.dots span{padding:3px 9px;border-radius:99px;border:2px solid var(--line);font-size:.85rem;font-weight:700;color:var(--muted)}
+.dots span.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.dots span.past{border-color:var(--ink);color:var(--ink)}
+.cap{margin-top:12px}
+.think{font-style:italic;color:var(--muted)}
+/* bars */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.trio{grid-template-columns:1fr}}
+.pairs{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
+.pairw{text-align:center;font-size:.85rem;color:var(--muted)}
+.pair{display:flex;gap:4px;align-items:flex-end;justify-content:center;margin-bottom:4px}
+.bar{width:24px;height:74px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--barink);font-weight:800;font-size:.95rem;transition:opacity .2s}
+.bar.o{background:var(--c1)} .bar.b{background:var(--c2)}
+.bar.dim{opacity:.2}
+.babies{display:flex;flex-wrap:wrap;gap:10px}
+.baby{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 10px;text-align:center;font-size:.85rem;width:150px}
+.baby svg{width:80px;height:80px}
+.big{font-family:var(--head);font-size:1.6rem;font-weight:800}
+/* clones */
+.crit{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px;margin:10px 0}
+.crit div{text-align:center;position:relative;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:4px}
+.crit svg{width:68px;height:68px}
+.crit div.dead{opacity:.28}
+.crit div.dead::after{content:"✕";position:absolute;top:6px;right:8px;font-weight:800;color:var(--bad);font-size:1.2rem}
+/* mutation */
+.codons{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.codon{text-align:center}
+.cb{display:flex;gap:2px}
+.base{width:30px;height:34px;border-radius:6px;border:2px solid var(--line);background:var(--surface);font-weight:800;cursor:pointer;padding:0}
+.base[data-b="A"]{border-color:#2B8A5B} .base[data-b="T"]{border-color:#B3261E}
+.base[data-b="C"]{border-color:#2B6CB0} .base[data-b="G"]{border-color:#B7791F}
+.base.hit{background:var(--c1);color:var(--barink)}
+.aa{margin-top:4px;border-radius:8px;background:var(--soft);font-weight:800;padding:3px 0}
+.aa.diff{background:var(--bad);color:var(--barink)}
+.aa.stop{background:var(--ink);color:var(--bg)}
+.aa.after{opacity:.3}
+/* sort */
+.scen{font-size:1.15rem;font-weight:700}
+.two{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.two button{flex:1 1 160px;border:2px solid var(--line);background:var(--surface);border-radius:10px;padding:12px;font-weight:800;cursor:pointer}
+.two button:disabled{opacity:.55;cursor:default}
+/* build */
+.chip{display:block;width:100%;text-align:left;background:var(--surface);border:2px solid var(--line);border-radius:10px;padding:9px 12px;margin:6px 0;cursor:pointer}
+.chip:hover{border-color:var(--c2)}
+ol.ans{padding-left:0;list-style:none;margin:0}
+ol.ans li button{display:block;width:100%;text-align:left;background:var(--soft);border:2px solid var(--line);border-radius:10px;padding:9px 12px;margin:6px 0;cursor:pointer}
+ol.ans li button.ok{border-color:var(--good)} ol.ans li button.no{border-color:var(--bad)}
+.qpick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+
+.keytbl{border-collapse:collapse;width:100%;max-width:640px;margin:8px 0 14px}
+.keytbl th,.keytbl td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+.keytbl th{background:var(--soft)}
+.allph{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.ph{border:2px solid var(--line);border-radius:12px;background:var(--surface);padding:8px;text-align:center;font-size:.85rem;position:relative}
+.ph svg{width:72px;height:72px}
+.ph.lock svg{opacity:.18;filter:grayscale(1)}
+.ph.found{border-color:var(--good)}
+.ph.found::after{content:"✓";position:absolute;top:4px;right:8px;color:var(--good);font-weight:800;font-size:1.1rem}
+.ph .gt{font-weight:700}
+.mcols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.mcols{grid-template-columns:1fr}}
+.mbox{border:2px solid var(--line);border-radius:12px;padding:12px;background:var(--surface)}
+.mbox h3{margin-bottom:6px}
+.mlab{font-weight:700;color:var(--muted);font-size:.9rem;margin:10px 0 4px}
+.mbox svg.mouse{width:150px;height:auto;display:block}
+.dna{display:flex;gap:6px;flex-wrap:wrap}
+.cod{display:flex;gap:1px;font-weight:800;font-family:var(--body);letter-spacing:.02em}
+.cod span{width:22px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:5px;background:var(--soft)}
+.cod span.hit{background:var(--c1);color:var(--barink)}
+.chain{display:flex;gap:6px;flex-wrap:wrap}
+.chain span{padding:3px 9px;border-radius:99px;background:var(--soft);font-weight:700;font-size:.9rem}
+.chain span.diff{background:var(--bad);color:var(--barink)}
+.chain span.stop{background:var(--ink);color:var(--bg)}
+.found3{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.found3 span{padding:6px 12px;border-radius:99px;border:2px solid var(--line);font-weight:700;color:var(--muted)}
+.found3 span.on{border-color:var(--good);color:var(--good)}
+.flow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-family:var(--head);font-weight:600;margin:10px 0}
+.flow span.a{color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Genetic variation in individuals</h1>
+  <p class="lede">Year 11 Biology, Module 2 revision. Eight tasks on how sexual reproduction and mutation create genetic variation, and how DNA, alleles and proteins determine phenotype.</p>
+</header>
+<nav class="tabs" role="tablist" aria-label="Tasks" id="tabs"></nav>
+
+<!-- MATCH -->
+<section id="p-match" hidden>
+  <h2>Match-up</h2>
+  <p>Pick a set. Select a term, then select its matching definition. Correct pairs turn green.</p>
+  <div class="sets" id="setBtns"></div>
+  <div class="row"><span class="prog" id="mScore"></span><button class="btn ghost" id="mReset">Start again</button></div>
+  <div class="fb" id="mFb" aria-live="polite"></div>
+  <div class="mgrid" id="mGrid"></div>
+</section>
+
+<!-- CLONES -->
+<section id="p-clones" hidden>
+  <h2>Clones or variety?</h2>
+  <p>Compare offspring made by asexual reproduction (one parent, identical copies) with offspring made by sexual reproduction (two parents, gametes joined at fertilisation). Then see what happens when a disease strikes. Creatures have three traits: colour, ears and tail.</p>
+  <div class="card">
+    <div class="row">
+      <label for="cloneParent" style="font-weight:700">Asexual parent has:</label>
+      <select id="cloneParent"><option value="round">round ears</option><option value="pointy">pointy ears</option></select>
+      <button class="btn" id="cloneGo">Make offspring</button>
+      <button class="btn" id="cloneDis" disabled>Disease strikes: kills round-eared creatures</button>
+    </div>
+    <p class="fb" id="cloneFb" aria-live="polite"></p>
+  </div>
+  <h3>Asexual reproduction: 8 offspring from one parent</h3>
+  <div class="crit" id="cloneA"></div>
+  <h3>Sexual reproduction: 8 offspring from two parents</h3>
+  <div class="crit" id="cloneS"></div>
+  <details class="q"><summary>Question: Explain an advantage of sexual reproduction</summary><div>
+    <div class="model"><p>Sexual reproduction mixes alleles from two parents, so offspring are genetically different from each other and from their parents. This genetic variation means some offspring are likely to have a phenotype that survives a new disease or change in the environment, and they can reproduce and pass on those alleles. Asexual offspring are identical to the parent, so one disease can affect all of them. (Asexual reproduction is faster and needs only one parent, but it produces no new combinations of alleles.)</p></div></div></details>
+</section>
+
+<!-- MEIOSIS -->
+<section id="p-mei" hidden>
+  <h2>Meiosis simulator</h2>
+  <p>Step through meiosis in a cell with two pairs of homologous chromosomes. Use the buttons in prophase I and metaphase I to see where variation comes from. Letters show alleles: capital and lower case letters are different alleles of the same gene.</p>
+  <div class="legend"><span><span class="sw o"></span>from the mother</span><span><span class="sw b"></span>from the father</span></div>
+  <div class="dots" id="mDots"></div>
+  <div class="stage"><svg id="mSvg" viewBox="0 0 620 320" role="img" aria-label="Diagram of the current stage of meiosis"></svg></div>
+  <div class="card cap" aria-live="polite"><h3 id="mTitle"></h3><p id="mText"></p><p class="think" id="mThink"></p><p class="fb" id="mExtra"></p></div>
+  <div class="row">
+    <button class="btn ghost" id="mBack">Back</button>
+    <button class="btn" id="mNext">Next stage</button>
+    <button class="btn ghost" id="mAct" hidden></button>
+    <button class="btn ghost" id="mNew">New cell</button>
+  </div>
+  <details class="q"><summary>Question 1: How many different gametes? Compare with and without crossing over</summary><div>
+    <p>Run meiosis twice, once skipping the crossing over button and once using it. Count the different gametes each time.</p>
+    <div class="model"><p>Without crossing over, the two gametes from each cell are identical, so only two types are made. With crossing over, the chromatids of each chromosome are no longer identical, so up to four different gametes are made. Crossing over creates new combinations of alleles on the same chromosome.</p></div></div></details>
+  <details class="q"><summary>Question 2: Why does independent assortment matter?</summary><div>
+    <p>Use the shuffle button in metaphase I several times and watch which alleles end up together in the gametes.</p>
+    <div class="model"><p>Each pair of homologous chromosomes lines up in a random orientation, independently of the other pair. Which maternal and paternal chromosomes go into each gamete is therefore random, so gametes carry different mixes of alleles. With more chromosome pairs the number of possible combinations grows very quickly.</p></div></div></details>
+</section>
+
+<!-- SHUFFLE -->
+<section id="p-shuf" hidden>
+  <h2>Chromosome shuffle</h2>
+  <p>Mum and Dad each have three pairs of chromosomes. In each pair, one chromosome carries the dominant alleles (orange) and the other carries the recessive alleles (blue). Spin for an egg and a sperm, then fertilise them to make a baby. Dominant alleles (capital letters) show up in the phenotype whenever they are present.</p>
+  <div class="card">
+    <div class="row">
+      <button class="btn" id="shEgg">Spin for an egg</button>
+      <button class="btn" id="shSperm">Spin for a sperm</button>
+      <button class="btn" id="shFert" disabled>Fertilise</button>
+      <button class="btn ghost" id="shFour">Make 4 siblings</button>
+      <button class="btn ghost" id="shClear">Clear album</button>
+    </div>
+  </div>
+  <div class="trio">
+    <div class="card"><h3>Mum's cell</h3><div class="pairs" id="shMum"></div><p class="muted" style="margin-top:10px">Egg:</p><div class="pairs" id="shEgg2"></div></div>
+    <div class="card"><h3>Dad's cell</h3><div class="pairs" id="shDad"></div><p class="muted" style="margin-top:10px">Sperm:</p><div class="pairs" id="shSperm2"></div></div>
+    <div class="card"><h3>Baby</h3><div id="shBaby"><p class="muted">Spin for an egg and a sperm, then fertilise.</p></div></div>
+  </div>
+  <div class="card"><h3>Family album</h3><p class="prog" id="shCount"></p><div class="babies" id="shAlbum"></div></div>
+  <div class="card">
+    <h3>All possible phenotypes</h3>
+    <p>Each gene has a dominant and a recessive phenotype. A baby shows the dominant phenotype if it has at least one dominant allele (capital letter). It shows the recessive phenotype only if it has two recessive alleles.</p>
+    <table class="keytbl">
+      <thead><tr><th>Gene</th><th>Dominant phenotype</th><th>Recessive phenotype</th></tr></thead>
+      <tbody>
+        <tr><td>Colour</td><td>Purple (PP or Pp)</td><td>Green (pp)</td></tr>
+        <tr><td>Ears</td><td>Pointy (EE or Ee)</td><td>Round (ee)</td></tr>
+        <tr><td>Tail</td><td>Curly (TT or Tt)</td><td>Straight (tt)</td></tr>
+      </tbody>
+    </table>
+    <p>With three genes there are 2 &times; 2 &times; 2 = <strong>8 possible phenotypes</strong>. An underscore means either allele. The chance shown is for one baby when both parents are Pp Ee Tt. Can you find all 8?</p>
+    <p class="prog" id="shFound"></p>
+    <div class="allph" id="shAll"></div>
+  </div>
+  <div class="card">
+    <h3>How many combinations are possible?</h3>
+    <label for="nPairs" style="font-weight:700">Pairs of chromosomes: <span id="nVal"></span></label>
+    <input type="range" id="nPairs" min="1" max="23" value="3">
+    <p id="nOut" style="margin-top:8px"></p>
+  </div>
+  <details class="q"><summary>Question: Explain how independent assortment and random fertilisation create variation</summary><div>
+    <div class="model"><p>In meiosis, each pair of homologous chromosomes separates independently of the others, so each gamete gets a random mix of maternal and paternal chromosomes. At fertilisation, any sperm can fuse with any egg. Each baby therefore receives a new combination of alleles, and different combinations of alleles can produce different phenotypes.</p></div></div></details>
+</section>
+
+<!-- CROSSOVER -->
+<section id="p-xo" hidden>
+  <h2>Crossover cutter</h2>
+  <p>The two genes below sit on the same chromosome. Without crossing over, the alleles on a chromosome always stay together. Click anywhere on the chromosomes to choose where the inner chromatids swap sections. Can you make all four allele combinations?</p>
+  <div class="row" style="margin-bottom:10px"><button class="btn" id="xoRand">Cut at a random spot</button><button class="btn ghost" id="xoReset">Reset</button></div>
+  <div class="xo"><svg id="xoSvg" viewBox="0 0 640 300" role="img" aria-label="Crossing over between two chromosomes"></svg></div>
+  <div class="card"><p class="fb" id="xoFb" aria-live="polite"></p><p id="xoTally"></p></div>
+  <details class="q"><summary>Question: Explain how crossing over creates genetic variation</summary><div>
+    <div class="model"><p>In prophase I of meiosis, homologous chromosomes pair up and sections of DNA are swapped between non-sister chromatids. Alleles that were on separate chromosomes are now on the same chromosome, creating new combinations of alleles. The resulting gametes are genetically different from each other and from the parent's own chromosomes. The closer two genes are, the less often a cut falls between them.</p></div></div></details>
+</section>
+
+<!-- MUTATION -->
+<section id="p-mut" hidden>
+  <h2>Mutation lab</h2>
+  <p>This gene makes an enzyme that produces fur pigment in mice. Press the button to copy the DNA with a random copying error (a mutation). See what happens to the protein and to the mouse.</p>
+  <div class="flow"><span>DNA</span><span class="a">&rarr;</span><span>protein</span><span class="a">&rarr;</span><span>phenotype</span></div>
+  <div class="row"><button class="btn" id="mutGo">Make a mutation</button><button class="btn ghost" id="mutReset">Reset</button></div>
+  <div class="mcols" style="margin-top:14px">
+    <div class="mbox"><h3>Original allele</h3><div id="mutOrig"></div></div>
+    <div class="mbox"><h3>Mutated allele</h3><div id="mutNew"></div></div>
+  </div>
+  <div class="card" aria-live="polite" id="mutOut"></div>
+  <div class="card"><h3>Outcomes you have found</h3><div class="found3" id="mFound"></div></div>
+  <details class="q"><summary>Question 1: Which mutation changed the DNA but not the phenotype?</summary><div>
+    <div class="model"><p>A silent mutation. The DNA base sequence changed, so there is a new allele, but the new codon codes for the same amino acid. The protein is the same, so the phenotype does not change. Keep pressing the button until you find it.</p></div></div></details>
+  <details class="q"><summary>Question 2: Explain how a mutation can lead to albinism</summary><div>
+    <div class="model"><p>A mutation changes the base sequence of the gene for the pigment enzyme. This creates a new allele that codes for a different protein. The new protein cannot make pigment, so the animal has a new phenotype: white fur and pink eyes. If the mutation is in a cell that makes gametes, the new allele can be passed to offspring.</p></div></div></details>
+</section>
+
+<!-- SOURCE OR NATURE -->
+<section id="p-sn" hidden>
+  <h2>Source or nature?</h2>
+  <p>A source is the origin or factor that contributes to genetic variation. The nature is the effect or outcome of a change in genetic variation. Decide which each statement describes.</p>
+  <div class="card" id="snCard"></div>
+</section>
+
+<!-- BUILD -->
+<section id="p-build" hidden>
+  <h2>Build an answer</h2>
+  <p>Choose a question, then select the sentences in an order that builds the explanation. Select a sentence in your answer to send it back.</p>
+  <div class="qpick" id="qpick"></div>
+  <div class="card" id="buildCard"></div>
+</section>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+/* ---------- tabs ---------- */
+const TABS=[['match','Match-up'],['clones','Clones or variety?'],['mei','Meiosis'],['shuf','Chromosome shuffle'],['xo','Crossover cutter'],['mut','Mutation lab'],['sn','Source or nature?'],['build','Build an answer']];
+const tabsEl=$('#tabs');
+TABS.forEach(([id,l])=>{const b=document.createElement('button');b.textContent=l;b.setAttribute('role','tab');b.dataset.t=id;b.addEventListener('click',()=>show(id));tabsEl.appendChild(b)});
+function show(id){
+  TABS.forEach(([t])=>{$('#p-'+t).hidden=t!==id});
+  tabsEl.querySelectorAll('button').forEach(b=>b.setAttribute('aria-selected',b.dataset.t===id?'true':'false'));
+}
+
+/* ---------- creatures ---------- */
+function creature(ph){
+  const col=ph.col==='purple'?'#8E5BC2':'#4FA35B';
+  const ears=ph.ear==='pointy'
+    ?`<polygon points="28,40 34,10 46,36" fill="${col}"/><polygon points="72,40 66,10 54,36" fill="${col}"/>`
+    :`<circle cx="34" cy="30" r="12" fill="${col}"/><circle cx="66" cy="30" r="12" fill="${col}"/>`;
+  const tail=ph.tail==='curly'
+    ?`<path d="M76 72 C96 74 98 52 86 52 C79 52 80 62 88 61" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round"/>`
+    :`<path d="M76 74 L98 84" fill="none" stroke="${col}" stroke-width="6" stroke-linecap="round"/>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true">${tail}${ears}<ellipse cx="50" cy="62" rx="30" ry="27" fill="${col}"/><circle cx="41" cy="56" r="6" fill="#fff"/><circle cx="59" cy="56" r="6" fill="#fff"/><circle cx="42" cy="57" r="3" fill="#111"/><circle cx="58" cy="57" r="3" fill="#111"/><path d="M43 71 Q50 77 57 71" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round"/></svg>`;
+}
+const GENES=[{n:'Colour',D:'P',r:'p',dom:'purple',rec:'green',k:'col'},{n:'Ears',D:'E',r:'e',dom:'pointy',rec:'round',k:'ear'},{n:'Tail',D:'T',r:'t',dom:'curly',rec:'straight',k:'tail'}];
+// genotype: array of 3 [allele1, allele2] where each is true for dominant
+function phenoOf(gt){const o={};GENES.forEach((g,i)=>{o[g.k]=(gt[i][0]||gt[i][1])?g.dom:g.rec});return o}
+function gtStr(gt){return gt.map((p,i)=>{const g=GENES[i];const s=[p[0]?g.D:g.r,p[1]?g.D:g.r].sort((a,b)=>a===a.toUpperCase()?-1:1);return s.join('')}).join(' ')}
+const rndGamete=()=>GENES.map(()=>Math.random()<.5);
+
+/* ---------- match-up ---------- */
+const SETS=[
+ {name:'Key terms',pairs:[
+  ['Sexual reproduction','Reproduction in which two gametes fuse, giving offspring that inherit alleles from both parents.'],
+  ['Asexual reproduction','Reproduction involving one parent only, producing offspring that are genetically identical to it.'],
+  ['Genetic variation','The differences in alleles and combinations of alleles between individuals.'],
+  ['Gamete','A sex cell (egg or sperm) with half the normal number of chromosomes.'],
+  ['Meiosis','Cell division that makes four non-identical gametes with half the chromosome number.'],
+  ['Independent assortment','The random way each pair of homologous chromosomes separates into gametes, independently of other pairs.'],
+  ['Crossing over','The swapping of sections of DNA between homologous chromosomes during meiosis.'],
+  ['Fertilisation','The fusion of a sperm and an egg to form a zygote with the full chromosome number.'],
+  ['Mutation','A change in the base sequence of DNA, such as from an error in replication.']]},
+ {name:'Processes and their effects',pairs:[
+  ['Crossing over','Swaps sections of DNA between homologous chromosomes, making new combinations of alleles on one chromosome.'],
+  ['Independent assortment','Gives each gamete a random mix of maternal and paternal chromosomes.'],
+  ['Random fertilisation','Any sperm can fuse with any egg, so each offspring gets a unique combination of alleles.'],
+  ['Halving the chromosome number','Gametes get one chromosome from each pair, so fertilisation restores the full number.'],
+  ['Separating alleles','The two alleles of a gene end up in different gametes when homologous chromosomes separate.'],
+  ['Error in DNA replication','A copying mistake that can change the base sequence of a gene.'],
+  ['Gene mutation','Creates a new allele that may code for a different protein.']]},
+ {name:'DNA to phenotype',pairs:[
+  ['DNA','The molecule of inheritance: a double helix that carries the genetic code.'],
+  ['Chromosome','A coiled structure of DNA found in the nucleus.'],
+  ['Gene','A sequence of DNA that codes for a protein.'],
+  ['Allele','An alternate form of a gene. There can be several for one gene.'],
+  ['Protein','Made following the instructions in a gene; different alleles can make different versions.'],
+  ['Phenotype','The observable characteristics that result from the proteins made from an organism\'s alleles.'],
+  ['Homologous chromosomes','A matching pair of chromosomes, one from each parent, carrying the same genes.'],
+  ['Diploid cell','A cell with two sets of chromosomes, one from each parent.'],
+  ['Haploid cell','A cell with one set of chromosomes, such as a gamete.']]}
+];
+let MS=0,M;
+function mReset(){const P=SETS[MS].pairs;M={t:shuf(P.map((_,i)=>i)),d:shuf(P.map((_,i)=>i)),ok:new Set(),st:null,sd:null,miss:0};mDraw();$('#mFb').textContent='';$('#mFb').className='fb'}
+function mDraw(){
+  const P=SETS[MS].pairs;
+  $('#setBtns').innerHTML=SETS.map((s,i)=>`<button data-s="${i}" aria-pressed="${i===MS}">${s.name}</button>`).join('');
+  $('#setBtns').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{MS=+b.dataset.s;mReset()}));
+  const col=(arr,key,sel)=>arr.map(i=>`<button data-k="${key}" data-i="${i}" class="${M.ok.has(i)?'done':''} ${sel===i?'sel':''}" ${M.ok.has(i)?'disabled':''}>${key==='t'?`<span class="term">${P[i][0]}</span>`:P[i][1]}</button>`).join('');
+  $('#mGrid').innerHTML=`<div>${col(M.t,'t',M.st)}</div><div>${col(M.d,'d',M.sd)}</div>`;
+  $('#mGrid').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>mPick(b)));
+  $('#mScore').textContent=`${M.ok.size} of ${P.length} matched, ${M.miss} wrong ${M.miss===1?'attempt':'attempts'}`;
+}
+function mPick(b){
+  const i=+b.dataset.i;if(b.dataset.k==='t')M.st=i;else M.sd=i;
+  if(M.st!==null&&M.sd!==null){
+    const fb=$('#mFb'),n=SETS[MS].pairs.length;
+    if(M.st===M.sd){M.ok.add(M.st);fb.className='fb good';fb.textContent=M.ok.size===n?'All matched. Try another set.':'Correct.'}
+    else{M.miss++;fb.className='fb bad';fb.textContent='Not a match. Reread the definition and try again.'}
+    M.st=null;M.sd=null;
+  }
+  mDraw();
+}
+$('#mReset').addEventListener('click',mReset);
+
+/* ---------- clones or variety ---------- */
+let CL={dis:false,A:[],S:[]};
+function cloneMake(){
+  const par=$('#cloneParent').value;
+  const parent={col:'purple',ear:par,tail:'curly'};
+  CL.A=Array.from({length:8},()=>parent);
+  CL.S=Array.from({length:8},()=>{const m=rndGamete(),d=rndGamete();
+    // both parents are Pp Ee Tt, so each gamete carries dominant allele with 50% chance per gene
+    return phenoOf(GENES.map((_,i)=>[m[i],d[i]]))});
+  CL.dis=false;cloneDraw();$('#cloneDis').disabled=false;
+  $('#cloneFb').className='fb';$('#cloneFb').textContent='Compare the two groups. Then let the disease strike.';
+}
+function cloneDraw(){
+  const g=(arr)=>arr.map(p=>`<div class="${CL.dis&&p.ear==='round'?'dead':''}" title="${p.col}, ${p.ear} ears, ${p.tail} tail">${creature(p)}</div>`).join('');
+  $('#cloneA').innerHTML=g(CL.A);$('#cloneS').innerHTML=g(CL.S);
+}
+$('#cloneGo').addEventListener('click',cloneMake);
+$('#cloneDis').addEventListener('click',()=>{
+  CL.dis=true;cloneDraw();$('#cloneDis').disabled=true;
+  const a=CL.A.filter(p=>p.ear!=='round').length,s=CL.S.filter(p=>p.ear!=='round').length;
+  $('#cloneFb').className='fb '+(s>0?'good':'bad');
+  $('#cloneFb').textContent=`Survivors: asexual ${a} of 8, sexual ${s} of 8. The clones are all alike, so they all survive or all die. The varied group almost always has some survivors.`;
+});
+
+/* ---------- meiosis simulator ---------- */
+const COL=m=>m==='M'?'var(--c1)':'var(--c2)';
+function chromatid(x,y0,len,pair,c,side,letters){
+  const w=4.5,h=len*.55;let s='';
+  if(pair===1){
+    s+=`<path d="M${x-w} ${y0+h} L${x-w} ${y0+w} A${w} ${w} 0 0 1 ${x+w} ${y0+w} L${x+w} ${y0+h} Z" fill="${COL(c.t)}"/>`;
+    s+=`<path d="M${x-w} ${y0+h} L${x-w} ${y0+len-w} A${w} ${w} 0 0 0 ${x+w} ${y0+len-w} L${x+w} ${y0+h} Z" fill="${COL(c.b)}"/>`;
+    [.2,.8].forEach(f=>s+=`<line x1="${x-w}" x2="${x+w}" y1="${y0+len*f}" y2="${y0+len*f}" stroke="rgba(0,0,0,.55)" stroke-width="2"/>`);
+    if(letters){
+      s+=`<text class="allele" x="${x+side*14}" y="${y0+len*.2+4}">${c.t==='M'?'A':'a'}</text>`;
+      s+=`<text class="allele" x="${x+side*14}" y="${y0+len*.8+4}">${c.b==='M'?'B':'b'}</text>`;
+    }
+  } else {
+    s+=`<rect x="${x-w}" y="${y0}" width="${w*2}" height="${len}" rx="${w}" fill="${COL(c.t)}"/>`;
+    s+=`<line x1="${x-w}" x2="${x+w}" y1="${y0+len*.35}" y2="${y0+len*.35}" stroke="rgba(0,0,0,.55)" stroke-width="2"/>`;
+    if(letters)s+=`<text class="allele" x="${x+side*14}" y="${y0+len*.35+4}">${c.t==='M'?'C':'c'}</text>`;
+  }
+  return s;
+}
+function homolog(cx,y0,len,pair,chrs,rep){
+  let s='';
+  if(rep){
+    s+=chromatid(cx-6,y0,len,pair,chrs[0],-1,true)+chromatid(cx+6,y0,len,pair,chrs[1],1,true);
+    s+=`<circle cx="${cx}" cy="${y0+len*.5}" r="5.5" fill="var(--ink)"/>`;
+  } else {
+    s+=chromatid(cx,y0,len,pair,chrs[0],1,true);
+    s+=`<circle cx="${cx}" cy="${y0+len*.5}" r="4" fill="var(--ink)"/>`;
+  }
+  return s;
+}
+const SIM={stage:0,cross:false,o1:true,o2:false};
+const Y1=55,L1=90,Y2=200,L2=62;
+const STAGES=[
+ ['Parent cell (diploid, 2n = 4)','This cell has 4 chromosomes in 2 homologous pairs. In each pair, one chromosome came from the mother and one from the father. Homologous chromosomes carry the same genes, but may carry different alleles: A or a, B or b, C or c.','Think: how many chromosomes should each gamete have?'],
+ ['Interphase: DNA replicates','Before meiosis begins, the DNA is copied. Each chromosome now has two identical sister chromatids joined at the centromere. An error made during this copying is one way a mutation can arise.','Think: are the two sister chromatids the same as each other at this point?'],
+ ['Prophase I: crossing over','Homologous chromosomes pair up. Non-sister chromatids can swap sections of DNA. This is crossing over, and it creates chromatids with new combinations of alleles. Use the button to make it happen.','Think: look at the alleles A, B, a, b. Which combinations appear after crossing over?'],
+ ['Metaphase I: independent assortment','The homologous pairs line up at the middle of the cell. Each pair lines up in a random orientation, independently of the other pair, so it is random which chromosomes go to which pole. Use the shuffle button to try different orientations.','Think: does the orange chromosome of pair 1 always end up with the orange chromosome of pair 2?'],
+ ['Anaphase I: homologous chromosomes separate','The homologous chromosomes are pulled to opposite poles. This separates the two alleles of each gene (A from a, B from b, C from c) and halves the chromosome number from 4 to 2 in each new cell.','Think: which part of meiosis separates alleles?'],
+ ['Telophase I: two cells form','The cell divides into two. Each cell now has half the chromosome number (haploid, n = 2), but each chromosome still has two chromatids.','Think: are these two cells genetically identical?'],
+ ['Meiosis II: sister chromatids separate','Each cell divides again. The sister chromatids are pulled apart. If crossing over has happened, the two chromatids of a chromosome are no longer identical.','Think: how many cells will there be after this division?'],
+ ['Four gametes','Meiosis has made four haploid gametes. Each has one chromosome from each pair, and they are not all identical.','']
+];
+function gametesNow(){
+  const M1=[{t:'M',b:'M'},{t:'M',b:'M'}],P1=[{t:'P',b:'P'},{t:'P',b:'P'}];
+  if(SIM.cross){M1[1]={t:'M',b:'P'};P1[0]={t:'P',b:'M'}}
+  const M2=[{t:'M',b:'M'},{t:'M',b:'M'}],P2=[{t:'P',b:'P'},{t:'P',b:'P'}];
+  const l1=SIM.o1?M1:P1,r1=SIM.o1?P1:M1,l2=SIM.o2?M2:P2,r2=SIM.o2?P2:M2;
+  return {M1,P1,M2,P2,l1,r1,l2,r2,g:[[l1[0],l2[0]],[l1[1],l2[1]],[r1[0],r2[0]],[r1[1],r2[1]]]};
+}
+const gKey=g=>(g[0].t==='M'?'A':'a')+(g[0].b==='M'?'B':'b')+(g[1].t==='M'?'C':'c');
+function meiosisDraw(){
+  const st=SIM.stage,G=gametesNow();
+  let s='';
+  const oval=(cx,cy,rx,ry)=>`<ellipse class="cell" cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}"/>`;
+  const rep1=(cx,pair,chrs)=>homolog(cx,pair===1?Y1:Y2,pair===1?L1:L2,pair,chrs,true);
+  const unrep=(cx,pair,c)=>homolog(cx,pair===1?Y1:Y2,pair===1?L1:L2,pair,[c],false);
+  if(st<=4)s+=oval(310,160,285,150);
+  if(st===5||st===6)s+=oval(160,160,142,148)+oval(460,160,142,148);
+  if(st===0){
+    const one=h=>[h[0]];
+    s+=unrep(215,1,{t:'M',b:'M'})+unrep(405,1,{t:'P',b:'P'})+unrep(265,2,{t:'M',b:'M'})+unrep(355,2,{t:'P',b:'P'});
+  }
+  if(st===1){
+    s+=rep1(215,1,G.M1.map(()=>({t:'M',b:'M'})))+rep1(405,1,G.P1.map(()=>({t:'P',b:'P'})))+rep1(265,2,G.M2)+rep1(355,2,G.P2);
+  }
+  if(st===2){
+    const M1=SIM.cross?G.M1:[{t:'M',b:'M'},{t:'M',b:'M'}],P1=SIM.cross?G.P1:[{t:'P',b:'P'},{t:'P',b:'P'}];
+    s+=rep1(276,1,M1)+rep1(344,1,P1)+rep1(276,2,G.M2)+rep1(344,2,G.P2);
+    if(SIM.cross){const yc=Y1+L1*.55;s+=`<path d="M287 ${yc-6} L333 ${yc+6} M287 ${yc+6} L333 ${yc-6}" stroke="var(--ink)" stroke-width="2.5" fill="none"/>`}
+  }
+  if(st===3||st===4){
+    const dx=st===3?45:150,Ls=310-dx,Rs=310+dx;
+    const lines=[[Ls,1],[Rs,1],[Ls,2],[Rs,2]].map(([x,p])=>`<line x1="${x<310?35:585}" y1="160" x2="${x}" y2="${p===1?Y1+L1/2:Y2+L2/2}" stroke="var(--muted)" stroke-dasharray="3 4" stroke-width="1"/>`).join('');
+    s+=lines;
+    if(st===3)s+=`<line x1="310" x2="310" y1="18" y2="302" stroke="var(--muted)" stroke-dasharray="6 5" stroke-width="1.5"/><text class="slab" x="310" y="14">equator</text>`;
+    s+=`<circle cx="35" cy="160" r="5" fill="var(--muted)"/><circle cx="585" cy="160" r="5" fill="var(--muted)"/><text class="slab" x="35" y="182">pole</text><text class="slab" x="585" y="182">pole</text>`;
+    s+=rep1(Ls,1,G.l1)+rep1(Rs,1,G.r1)+rep1(Ls,2,G.l2)+rep1(Rs,2,G.r2);
+  }
+  if(st===5){
+    s+=rep1(160,1,G.l1)+rep1(160,2,G.l2)+rep1(460,1,G.r1)+rep1(460,2,G.r2);
+  }
+  if(st===6){
+    [[160,G.l1,G.l2],[460,G.r1,G.r2]].forEach(([cx,h1,h2])=>{
+      s+=unrep(cx-38,1,h1[0])+unrep(cx+38,1,h1[1])+unrep(cx-38,2,h2[0])+unrep(cx+38,2,h2[1]);
+    });
+  }
+  if(st===7){
+    [85,235,385,535].forEach((cx,i)=>{
+      const g=G.g[i];
+      s+=`<circle class="cell" cx="${cx}" cy="140" r="66"/>`;
+      s+=homolog(cx-18,95,L1,1,[g[0]],false)+homolog(cx+24,109,L2,2,[g[1]],false);
+      s+=`<text class="slab" x="${cx}" y="232">Gamete ${i+1}</text><text class="allele" style="font-size:15px" x="${cx}" y="254">${gKey(g)}</text>`;
+    });
+  }
+  $('#mSvg').innerHTML=s;
+  $('#mDots').innerHTML=['Start','Replicate','Prophase I','Metaphase I','Anaphase I','Telophase I','Meiosis II','Gametes'].map((l,i)=>`<span class="${i===st?'on':i<st?'past':''}">${l}</span>`).join('');
+  $('#mTitle').textContent=STAGES[st][0];$('#mText').textContent=STAGES[st][1];$('#mThink').textContent=STAGES[st][2];
+  const ex=$('#mExtra');ex.className='fb';ex.textContent='';
+  if(st===7){const n=new Set(G.g.map(gKey)).size;ex.className='fb '+(n===4?'good':'bad');ex.textContent=`${n} different gametes in this run.`+(n<4?' Go back to prophase I and use crossing over, or start a new cell, to see more variety.':' Every gamete is genetically different.')}
+  $('#mBack').disabled=st===0;$('#mNext').disabled=st===7;
+  const act=$('#mAct');act.hidden=!(st===2||st===3);
+  if(st===2){act.textContent=SIM.cross?'Crossing over done: undo':'Cross over';}
+  if(st===3){act.textContent='Shuffle chromosomes'}
+}
+$('#mNext').addEventListener('click',()=>{if(SIM.stage<7){SIM.stage++;meiosisDraw()}});
+$('#mBack').addEventListener('click',()=>{if(SIM.stage>0){SIM.stage--;meiosisDraw()}});
+$('#mAct').addEventListener('click',()=>{
+  if(SIM.stage===2)SIM.cross=!SIM.cross;
+  if(SIM.stage===3){SIM.o1=Math.random()<.5;SIM.o2=Math.random()<.5}
+  meiosisDraw();
+});
+$('#mNew').addEventListener('click',()=>{SIM.stage=0;SIM.cross=false;SIM.o1=Math.random()<.5;SIM.o2=Math.random()<.5;meiosisDraw()});
+
+/* ---------- chromosome shuffle ---------- */
+const SH={mum:null,dad:null,babies:[],busy:false,found:new Set()};
+const phKey=ph=>ph.col+'|'+ph.ear+'|'+ph.tail;
+const COMBOS=Array.from({length:8},(_,i)=>{const d=[!(i&4),!(i&2),!(i&1)];const ph=phenoOf(d.map(x=>[x,x]));return {ph,key:phKey(ph),pat:GENES.map((g,k)=>d[k]?g.D+'_':g.r+g.r).join(' '),n:d.reduce((a,x)=>a*(x?3:1),1)}});
+function barsFor(choice,dim){
+  return GENES.map((g,i)=>{
+    const c=choice?choice[i]:null;
+    return `<div class="pairw"><div class="pair"><div class="bar o ${choice&&!c?'dim':''}">${g.D}</div><div class="bar b ${choice&&c?'dim':''}">${g.r}</div></div>${g.n}</div>`;
+  }).join('');
+}
+function gameteBars(choice){
+  if(!choice)return '<span class="muted">none yet</span>';
+  return choice.map((c,i)=>`<div class="pairw"><div class="pair"><div class="bar ${c?'o':'b'}">${c?GENES[i].D:GENES[i].r}</div></div>${GENES[i].n}</div>`).join('');
+}
+function babyHtml(b){
+  const gt=GENES.map((_,i)=>[b.m[i],b.d[i]]),ph=phenoOf(gt);
+  const pairs=GENES.map((g,i)=>`<div class="pairw"><div class="pair"><div class="bar ${b.m[i]?'o':'b'}">${b.m[i]?g.D:g.r}</div><div class="bar ${b.d[i]?'o':'b'}">${b.d[i]?g.D:g.r}</div></div>${g.n}</div>`).join('');
+  return {pairs,ph,gt,str:gtStr(gt)};
+}
+function shDraw(){
+  $('#shMum').innerHTML=barsFor(SH.mum);$('#shDad').innerHTML=barsFor(SH.dad);
+  $('#shEgg2').innerHTML=gameteBars(SH.mum);$('#shSperm2').innerHTML=gameteBars(SH.dad);
+  $('#shFert').disabled=!(SH.mum&&SH.dad)||SH.busy;$('#shEgg').disabled=SH.busy;$('#shSperm').disabled=SH.busy;
+  $('#shAlbum').innerHTML=SH.babies.map(b=>{const h=babyHtml(b);return `<div class="baby">${creature(h.ph)}<div><strong>${h.str}</strong></div><div class="muted">${h.ph.col}, ${h.ph.ear} ears, ${h.ph.tail} tail</div></div>`}).join('');
+  const u=new Set(SH.babies.map(b=>babyHtml(b).str)).size;
+  $('#shAll').innerHTML=COMBOS.map(c=>{const f=SH.found.has(c.key);return `<div class="ph ${f?'found':'lock'}">${creature(c.ph)}<div>${c.ph.col}, ${c.ph.ear} ears, ${c.ph.tail} tail</div><div class="gt">${c.pat}</div><div class="muted">chance ${c.n} in 64</div></div>`}).join('');
+  $('#shFound').textContent=`Found ${SH.found.size} of 8 phenotypes.`;
+  $('#shCount').textContent=SH.babies.length?`${SH.babies.length} ${SH.babies.length===1?'baby':'babies'}, ${u} different ${u===1?'genotype':'genotypes'}.`:'No babies yet.';
+}
+function spin(who){
+  SH.busy=true;let n=0;
+  const t=setInterval(()=>{SH[who]=rndGamete();shDraw();if(++n>=8){clearInterval(t);SH.busy=false;shDraw()}},90);
+}
+$('#shEgg').addEventListener('click',()=>spin('mum'));
+$('#shSperm').addEventListener('click',()=>spin('dad'));
+function addBaby(m,d){SH.babies.unshift({m,d});SH.babies=SH.babies.slice(0,12);SH.found.add(phKey(babyHtml({m,d}).ph))}
+$('#shFert').addEventListener('click',()=>{
+  addBaby(SH.mum.slice(),SH.dad.slice());
+  const h=babyHtml(SH.babies[0]);
+  $('#shBaby').innerHTML=`<div class="pairs">${h.pairs}</div><div style="margin:8px 0">${creature(h.ph).replace('<svg','<svg width="90" height="90"')}</div><p><strong>${h.str}</strong><br>${h.ph.col}, ${h.ph.ear} ears, ${h.ph.tail} tail</p><p class="muted">Left bar: from Mum's egg. Right bar: from Dad's sperm.</p>`;
+  SH.mum=null;SH.dad=null;shDraw();
+});
+$('#shFour').addEventListener('click',()=>{for(let i=0;i<4;i++)addBaby(rndGamete(),rndGamete());shDraw()});
+$('#shClear').addEventListener('click',()=>{SH.babies=[];SH.found=new Set();$('#shBaby').innerHTML='<p class="muted">Spin for an egg and a sperm, then fertilise.</p>';shDraw()});
+function nDraw(){
+  const n=+$('#nPairs').value;$('#nVal').textContent=n;
+  const g=Math.pow(2,n),z=Math.pow(2,2*n);
+  $('#nOut').innerHTML=`One parent can make <strong>${g.toLocaleString('en-NZ')}</strong> different gametes from independent assortment alone (2<sup>${n}</sup>). Two parents can make <strong>${z.toLocaleString('en-NZ')}</strong> different combinations of chromosomes in a baby.`+(n===23?' Humans have 23 pairs, and that is before crossing over is added.':'');
+}
+$('#nPairs').addEventListener('input',nDraw);
+
+/* ---------- crossover cutter ---------- */
+let XO={cut:null};
+const XY0=30,XY1=250,XG1=75,XG2=205,XMID=140;
+function xoDraw(){
+  const cut=XO.cut;
+  // chromatids: [orange outer, orange inner, blue inner, blue outer]
+  const X=[100,120,190,210];
+  const seg=(x,c1,c2,swapped)=>{
+    // c1: top colour, c2: bottom colour (below cut)
+    let s='',r=5;
+    const yc=cut===null?null:cut;
+    if(yc===null){s+=`<rect x="${x-r}" y="${XY0}" width="${r*2}" height="${XY1-XY0}" rx="${r}" fill="${c1}"/>`}
+    else{
+      s+=`<path d="M${x-r} ${yc} L${x-r} ${XY0+r} A${r} ${r} 0 0 1 ${x+r} ${XY0+r} L${x+r} ${yc} Z" fill="${c1}"/>`;
+      s+=`<path d="M${x-r} ${yc} L${x-r} ${XY1-r} A${r} ${r} 0 0 0 ${x+r} ${XY1-r} L${x+r} ${yc} Z" fill="${c2}"/>`;
+    }
+    [XG1,XG2].forEach(y=>s+=`<line x1="${x-r}" x2="${x+r}" y1="${y}" y2="${y}" stroke="rgba(0,0,0,.55)" stroke-width="2"/>`);
+    return s;
+  };
+  const O='var(--c1)',B='var(--c2)';
+  // allele source for each gene on each chromatid
+  const swapG=y=>cut!==null&&cut<y; // true when gene lies below the cut
+  const chr=[
+    {g1:'O',g2:'O'},
+    {g1:swapG(XG1)?'B':'O',g2:swapG(XG2)?'B':'O'},
+    {g1:swapG(XG1)?'O':'B',g2:swapG(XG2)?'O':'B'},
+    {g1:'B',g2:'B'}
+  ];
+  let s='';
+  s+=seg(X[0],O,O)+seg(X[3],B,B);
+  s+=seg(X[1],O,cut===null?O:B)+seg(X[2],B,cut===null?B:O);
+  s+=`<circle cx="110" cy="${XMID}" r="7" fill="var(--ink)"/><circle cx="200" cy="${XMID}" r="7" fill="var(--ink)"/>`;
+  // letters
+  const al=(src,gene)=>gene===1?(src==='O'?'P':'p'):(src==='O'?'E':'e');
+  const lx=[80,140,170,230];
+  chr.forEach((c,i)=>{
+    s+=`<text class="allele" x="${lx[i]}" y="${XG1+4}">${al(c.g1,1)}</text><text class="allele" x="${lx[i]}" y="${XG2+4}">${al(c.g2,2)}</text>`;
+  });
+  s+=`<text class="slab" x="64" y="${XG1+4}" style="text-anchor:end">Colour</text><text class="slab" x="64" y="${XG2+4}" style="text-anchor:end">Ears</text>`;
+  s+=`<text class="slab" x="155" y="20">Click to choose where to cut</text>`;
+  if(cut!==null)s+=`<line x1="88" x2="222" y1="${cut}" y2="${cut}" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 4"/><text x="236" y="${cut+6}" font-size="18">✂</text>`;
+  s+=`<rect id="xoHit" x="85" y="${XY0}" width="140" height="${XY1-XY0}" fill="transparent" style="cursor:crosshair"/>`;
+  // gametes
+  s+=`<text class="slab" x="500" y="20">The four gametes made</text>`;
+  const gx=[390,460,530,600];
+  const keys=chr.map(c=>al(c.g1,1)+al(c.g2,2));
+  chr.forEach((c,i)=>{
+    const x=gx[i],y0=60,len=130,mid=y0+len/2,r=7;
+    const c1=c.g1==='O'?O:B,c2=c.g2==='O'?O:B;
+    s+=`<path d="M${x-r} ${mid} L${x-r} ${y0+r} A${r} ${r} 0 0 1 ${x+r} ${y0+r} L${x+r} ${mid} Z" fill="${c1}"/><path d="M${x-r} ${mid} L${x-r} ${y0+len-r} A${r} ${r} 0 0 0 ${x+r} ${y0+len-r} L${x+r} ${mid} Z" fill="${c2}"/>`;
+    s+=`<text class="allele" style="font-size:16px" x="${x}" y="${y0+len+30}">${keys[i][0]} ${keys[i][1]}</text>`;
+    const recomb=c.g1!==c.g2;
+    if(recomb)s+=`<text class="slab" x="${x}" y="${y0+len+50}" style="fill:var(--c1);font-weight:700">new</text><text class="slab" x="${x}" y="${y0+len+64}" style="fill:var(--c1);font-weight:700">mix</text>`;
+  });
+  $('#xoSvg').innerHTML=s;
+  const hit=$('#xoHit');
+  hit.addEventListener('click',e=>{
+    const r=$('#xoSvg').getBoundingClientRect(),sc=300/r.height;
+    XO.cut=Math.max(XY0+6,Math.min(XY1-6,(e.clientY-r.top)*sc));xoDraw();
+  });
+  const types=new Set(keys);
+  const fb=$('#xoFb');
+  if(cut===null){fb.className='fb';fb.textContent='No crossing over yet: only two types of gamete (P E and p e).'}
+  else if(cut<XG1){fb.className='fb bad';fb.textContent='Cut above both genes: both genes swap together, so the allele combinations are the same as before.'}
+  else if(cut>XG2){fb.className='fb bad';fb.textContent='Cut below both genes: nothing that matters is swapped, so there are still only two types of gamete.'}
+  else{fb.className='fb good';fb.textContent='Cut between the two genes: alleles are exchanged, making new combinations (P e and p E).'}
+  $('#xoTally').innerHTML=`Different gamete types: <strong>${types.size}</strong> of 4.`+(types.size===4?' All four combinations are made. Crossing over creates genetic variation.':'');
+}
+$('#xoRand').addEventListener('click',()=>{XO.cut=XY0+10+Math.random()*(XY1-XY0-20);xoDraw()});
+$('#xoReset').addEventListener('click',()=>{XO.cut=null;xoDraw()});
+
+/* ---------- mutation lab ---------- */
+const MG={c:['GCC','CAC','GAG','TAC','GGT'],p:['Ala','His','Glu','Tyr','Gly']};
+const EFF={
+  none:{ph:'brown',label:'No change in phenotype',txt:'The enzyme still works, so pigment is made and the mouse has brown fur. The phenotype is the same.'},
+  reduced:{ph:'pale',label:'Paler fur',txt:'The enzyme works less well, so less pigment is made and the fur is paler.'},
+  albino:{ph:'albino',label:'Albino (no pigment)',txt:'The enzyme cannot work, so no pigment is made. The mouse has white fur and pink eyes. This is albinism.'}
+};
+const MUTS=[
+ {type:'Silent mutation',desc:'One base in the third codon changes from G to A (GAG becomes GAA).',c:['GCC','CAC','GAA','TAC','GGT'],p:['Ala','His','Glu','Tyr','Gly'],hit:[8],eff:'none',why:'The new codon still codes for the same amino acid (Glu), so the protein is identical.'},
+ {type:'Different amino acid',desc:'One base in the second codon changes from C to G (CAC becomes CAG).',c:['GCC','CAG','GAG','TAC','GGT'],p:['Ala','Gln','Glu','Tyr','Gly'],hit:[5],eff:'reduced',why:'One amino acid is different (His becomes Gln), so the enzyme has a slightly different shape and works less well.'},
+ {type:'Different amino acid',desc:'One base in the third codon changes from A to T (GAG becomes GTG).',c:['GCC','CAC','GTG','TAC','GGT'],p:['Ala','His','Val','Tyr','Gly'],hit:[7],eff:'albino',why:'One amino acid is different (Glu becomes Val). This changes the shape of the enzyme so it cannot make pigment.'},
+ {type:'Early stop codon',desc:'One base in the fourth codon changes from C to A (TAC becomes TAA).',c:['GCC','CAC','GAG','TAA','GGT'],p:['Ala','His','Glu','stop'],hit:[11],eff:'albino',why:'TAA is a stop signal, so the protein is cut short and no working enzyme is made.'},
+ {type:'Deletion (frameshift)',desc:'One base is deleted: the C in the second codon is lost.',c:['GCC','ACG','AGT','ACG','GT'],p:['Ala','Thr','Ser','Thr'],hit:[3,4,5,6,7,8,9,10,11,12,13],eff:'albino',why:'Deleting a base shifts the way every codon after it is read, so all the later amino acids are different and the enzyme cannot work.'}
+];
+function mouse(kind){
+  const fur={brown:'#8B5E3C',pale:'#D2B48C',albino:'#FAFAFA'}[kind];
+  const eye=kind==='albino'?'#D6336C':'#222';
+  const tail=kind==='albino'?'#F2B6C0':'#6B4A30';
+  return `<svg class="mouse" viewBox="0 0 130 90" role="img" aria-label="${kind} mouse"><path d="M92 64 C112 66 122 52 118 40" fill="none" stroke="${tail}" stroke-width="4" stroke-linecap="round"/><ellipse cx="64" cy="60" rx="36" ry="22" fill="${fur}" stroke="#999" stroke-width="1.5"/><circle cx="33" cy="54" r="17" fill="${fur}" stroke="#999" stroke-width="1.5"/><circle cx="38" cy="36" r="10" fill="${fur}" stroke="#999" stroke-width="1.5"/><circle cx="38" cy="37" r="5.5" fill="#F2B6C0"/><circle cx="17" cy="57" r="3.5" fill="#E58FA0"/><circle cx="30" cy="50" r="3.5" fill="${eye}"/></svg>`;
+}
+function dnaHtml(codons,hit){
+  let i=0;
+  return `<div class="dna">${codons.map(c=>`<div class="cod">${[...c].map(b=>{const h=hit.includes(i++);return `<span class="${h?'hit':''}">${b}</span>`}).join('')}</div>`).join('')}</div>`;
+}
+function chainHtml(p,orig){
+  return `<div class="chain">${p.map((a,i)=>`<span class="${a==='stop'?'stop':(orig&&orig[i]!==a?'diff':'')}">${a}</span>`).join('')}</div>`;
+}
+function mBox(c,p,hit,eff,orig){
+  return `<div class="mlab">DNA (coding strand)</div>${dnaHtml(c,hit)}<div class="mlab">Protein (amino acids)</div>${chainHtml(p,orig)}<div class="mlab">Phenotype</div>${mouse(eff.ph)}<p><strong>${({brown:'Brown fur',pale:'Pale fur',albino:'White fur, pink eyes'})[eff.ph]}</strong></p>`;
+}
+const MU={cur:-1,found:new Set()};
+function mutDraw(){
+  $('#mutOrig').innerHTML=mBox(MG.c,MG.p,[],EFF.none,null);
+  const out=$('#mutOut');
+  if(MU.cur<0){
+    $('#mutNew').innerHTML='<p class="muted">Press &ldquo;Make a mutation&rdquo; to copy the DNA with an error.</p>';
+    out.innerHTML='<p class="muted">The explanation will appear here.</p>';
+  } else {
+    const m=MUTS[MU.cur],e=EFF[m.eff];
+    $('#mutNew').innerHTML=mBox(m.c,m.p,m.hit,e,MG.p);
+    out.innerHTML=`<p><strong>${m.type}.</strong> ${m.desc} Changed bases are orange.</p>
+      <p><strong>Protein:</strong> ${m.why}</p>
+      <p><strong>Phenotype:</strong> ${e.txt}</p>
+      <p class="prog">${m.eff==='none'?'New allele, same protein, same phenotype.':'New allele, different protein, new phenotype.'}</p>`;
+  }
+  $('#mFound').innerHTML=Object.keys(EFF).map(k=>`<span class="${MU.found.has(k)?'on':''}">${MU.found.has(k)?'✓ ':''}${EFF[k].label}</span>`).join('');
+}
+$('#mutGo').addEventListener('click',()=>{
+  let n;do{n=Math.floor(Math.random()*MUTS.length)}while(n===MU.cur);
+  MU.cur=n;MU.found.add(MUTS[n].eff);mutDraw();
+});
+$('#mutReset').addEventListener('click',()=>{MU.cur=-1;MU.found=new Set();mutDraw()});
+
+/* ---------- source or nature ---------- */
+const SN=[
+ ['Mutation','source','A mutation creates new alleles. It is an origin of variation, so it is a source.'],
+ ['Crossing over during meiosis','source','It makes new combinations of alleles, so it is a source of genetic variation.'],
+ ['Increased resistance to disease in a population','nature','This is the beneficial effect or outcome of variation, so it is the nature of the variation.'],
+ ['Random fertilisation of gametes','source','It combines alleles from two parents in new ways, so it is a source.'],
+ ['A high prevalence of albinism in a population of wild animals','nature','This is an outcome of a change in genetic variation over time, so it is the nature.'],
+ ['Independent assortment of chromosomes','source','It gives gametes random mixes of chromosomes, so it is a source.'],
+ ['A copying error in DNA replication changes a gene','source','It is the origin of a new allele, so it is a source.'],
+ ['Some offspring survive a disease that kills their parents','nature','This is a beneficial outcome caused by variation, so it is the nature.'],
+ ['Sexual reproduction','source','It produces offspring with new combinations of alleles, so it is a source.'],
+ ['A new phenotype, such as white fur, appears in a litter','nature','This is the effect or outcome that can be observed, so it is the nature.']
+];
+let SO;
+function snInit(){SO={q:shuf(SN.map((_,i)=>i)),i:0,score:0,answered:false};snDraw()}
+function snDraw(){
+  const card=$('#snCard');
+  if(SO.i>=SN.length){
+    card.innerHTML=`<h3>Finished</h3><p class="scen">You scored ${SO.score} out of ${SN.length}.</p><button class="btn" id="snAgain">Try again</button>`;
+    $('#snAgain').addEventListener('click',snInit);return;
+  }
+  const s=SN[SO.q[SO.i]];
+  card.innerHTML=`<p class="prog">Statement ${SO.i+1} of ${SN.length}</p><p class="scen">${s[0]}</p><div class="two"><button data-a="source">Source</button><button data-a="nature">Nature</button></div><p class="fb" id="snFb" aria-live="polite"></p><button class="btn" id="snNext" hidden>Next</button>`;
+  card.querySelectorAll('.two button').forEach(b=>b.addEventListener('click',()=>{
+    if(SO.answered)return;SO.answered=true;
+    const ok=b.dataset.a===s[1];if(ok)SO.score++;
+    const fb=$('#snFb');fb.className='fb '+(ok?'good':'bad');
+    fb.textContent=(ok?'Correct. ':`Not quite: this is the ${s[1]}. `)+s[2];
+    card.querySelectorAll('.two button').forEach(x=>x.disabled=true);$('#snNext').hidden=false;
+  }));
+  $('#snNext').addEventListener('click',()=>{SO.i++;SO.answered=false;snDraw()});
+}
+
+/* ---------- build an answer ---------- */
+const BQ=[
+ {t:'Sexual reproduction',q:'A new disease spreads through a population of sheep. Explain an advantage of sexual reproduction for the survival of the population.',s:[
+  'In sexual reproduction, two parents each make gametes and these fuse at fertilisation.',
+  'Each offspring receives a different combination of alleles from its two parents.',
+  'This means the offspring are genetically different from each other and from their parents, so there is genetic variation.',
+  'When a new disease appears, some offspring may have alleles that give them resistance.',
+  'These individuals survive and reproduce, passing on the resistance alleles.',
+  'Asexual reproduction makes identical offspring, so one disease could kill them all.']},
+ {t:'Meiosis',q:'Describe meiosis and explain its role in producing genetic variation.',s:[
+  'Meiosis is a type of cell division that produces gametes.',
+  'The cell divides twice to make four cells, each with half the number of chromosomes of the parent cell.',
+  'In the first division, homologous chromosomes are separated, so the two alleles of each gene go into different cells.',
+  'Crossing over and independent assortment mean the four gametes are not identical.',
+  'Each gamete therefore carries a unique combination of alleles.',
+  'At fertilisation the full chromosome number is restored.']},
+ {t:'Sexual reproduction as a source',q:'Explain how sexual reproduction is a source of genetic variation in offspring.',s:[
+  'During meiosis, crossing over swaps sections of DNA between homologous chromosomes, creating new combinations of alleles on a chromosome.',
+  'Independent assortment means each pair of chromosomes separates randomly, so gametes get different mixes of maternal and paternal chromosomes.',
+  'These processes make gametes that are genetically unique.',
+  'Fertilisation is random, so any sperm can fuse with any egg.',
+  'Each offspring therefore has a new combination of alleles from its two parents.',
+  'Different combinations of alleles can produce different phenotypes, so the offspring show variation.']},
+ {t:'Mutation and phenotype',q:'Explain how a mutation can lead to a new phenotype such as albinism in a wild animal.',s:[
+  'DNA is copied before cell division, and sometimes an error is made during this replication.',
+  'The error changes the base sequence of a gene, which is a gene mutation.',
+  'The changed gene is a new allele of that gene.',
+  'The new allele codes for a different protein, for example an enzyme that cannot make pigment.',
+  'The animal therefore has a new phenotype: white fur and pale skin, called albinism.',
+  'If the mutation happens in a cell that makes gametes, the new allele can be passed to offspring.']},
+ {t:'Source and nature',q:'Albinism has become more common in a population of wild animals. Describe the source and nature of this genetic variation.',s:[
+  'The source of the variation is a mutation, which created an allele for albinism.',
+  'The nature of the variation is its effect: albino animals have a different phenotype because they make no pigment.',
+  'The allele is passed to offspring through gametes in sexual reproduction.',
+  'In a snowy habitat, white animals are harder for predators to see.',
+  'This makes them more likely to survive and reproduce, so the allele is passed on more often.',
+  'Over time, the prevalence of albinism increases in the population.']},
+ {t:'Alleles and phenotype',q:'Explain how different alleles result in different phenotypes.',s:[
+  'A gene is a sequence of DNA that codes for a protein.',
+  'An allele is an alternate form of a gene with a slightly different base sequence.',
+  'There can be several alleles for one gene.',
+  'Different alleles code for different proteins, or for proteins that work differently.',
+  'An individual has two alleles for each gene, one from each parent.',
+  'The combination of alleles determines which proteins are made, and so the phenotype.']}
+];
+let B={q:0,pool:[],ans:[],checked:false,shown:false};
+function bSet(q){B={q,pool:shuf(BQ[q].s.map((_,i)=>i)),ans:[],checked:false,shown:false};bDraw()}
+function bDraw(){
+  const Q=BQ[B.q];
+  $('#qpick').innerHTML=BQ.map((x,i)=>`<button data-q="${i}" aria-pressed="${i===B.q}">${x.t}</button>`).join('');
+  $('#qpick').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>bSet(+b.dataset.q)));
+  const ansHtml=B.ans.map((i,pos)=>`<li><button data-a="${pos}" class="${B.checked?(i===pos?'ok':'no'):''}">${pos+1}. ${Q.s[i]}${B.checked?(i===pos?' (right place)':' (not in the right place)'):''}</button></li>`).join('');
+  $('#buildCard').innerHTML=`<p><strong>Question:</strong> ${Q.q}</p>
+   <h3 style="margin-top:14px">Sentences to use</h3>${B.pool.length?B.pool.map(i=>`<button class="chip" data-p="${i}">${Q.s[i]}</button>`).join(''):'<p class="muted">All sentences used.</p>'}
+   <h3 style="margin-top:14px">Your answer</h3>${B.ans.length?`<ol class="ans">${ansHtml}</ol>`:'<p class="muted">Select sentences above to build your answer.</p>'}
+   <div class="row" style="margin-top:12px"><button class="btn" id="bCheck" ${B.pool.length?'disabled':''}>Check order</button><button class="btn ghost" id="bModel">${B.shown?'Hide model answer':'Show model answer'}</button><button class="btn ghost" id="bReset">Start again</button></div>
+   <p class="fb" id="bFb" aria-live="polite"></p>
+   ${B.shown?`<div class="model"><p><strong>Model answer</strong></p><p>${Q.s.join(' ')}</p></div>`:''}`;
+  $('#buildCard').querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.p;B.pool=B.pool.filter(x=>x!==i);B.ans.push(i);B.checked=false;bDraw()}));
+  $('#buildCard').querySelectorAll('[data-a]').forEach(b=>b.addEventListener('click',()=>{const pos=+b.dataset.a;B.pool.push(B.ans[pos]);B.ans.splice(pos,1);B.checked=false;bDraw()}));
+  $('#bCheck').addEventListener('click',()=>{B.checked=true;bDraw();const n=B.ans.filter((i,p)=>i===p).length,fb=$('#bFb');
+    fb.className='fb '+(n===Q.s.length?'good':'bad');
+    fb.textContent=n===Q.s.length?'Every sentence is in the right place. Each one leads to the next.':`${n} of ${Q.s.length} sentences are in the right place. Ask what has to happen first, then what that causes.`});
+  $('#bModel').addEventListener('click',()=>{B.shown=!B.shown;bDraw()});
+  $('#bReset').addEventListener('click',()=>bSet(B.q));
+}
+
+/* ---------- init ---------- */
+mReset();cloneMake();meiosisDraw();shDraw();nDraw();xoDraw();mutDraw();snInit();bSet(0);show('match');
+</script>
+</body>
+</html>
